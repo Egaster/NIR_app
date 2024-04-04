@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      home: ChoosingPage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+class ChoosingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                     IconButton(
                       icon:  Image.asset('assets/images/telegram.png', width: 80, height: 80),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PageOne()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AuthorizationTelegram()));
                       },
                     ),
                     const Text('Telegram',
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                     IconButton(
                       icon:  Image.asset('assets/images/VK.png', width: 90, height: 90),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PageTwo()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AuthorizationVK()));
                       },
                     ),
                     const Text('VK',
@@ -77,30 +77,72 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class PageOne extends StatelessWidget {
+class AuthorizationTelegram extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page One'),
+        title: Text('Авторизация Telegram'),
       ),
-      body: Center(
-        child: Text('This is Page One'),
-      ),
+      body:Stack(
+          children: <Widget>[
+            Positioned(      
+              top: 20,
+              left: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChoosingPage()));
+                },
+                child: Text('Вернуться'),
+              ),
+            ),
+            Positioned(      
+              top: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AuthorizationVK()));
+                },
+                child: Text('Авторизация VK'),
+              ),
+            ),
+          ],
+        ),
     );
   }
 }
 
-class PageTwo extends StatelessWidget {
+class AuthorizationVK extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Page Two'),
+        title: Text('Авторизация VK'),
       ),
-      body: Center(
-        child: Text('This is Page Two'),
-      ),
+      body:Stack(
+          children: <Widget>[
+            Positioned(      
+              top: 20,
+              left: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChoosingPage()));
+                },
+                child: Text('Вернуться'),
+              ),
+            ),
+            Positioned(      
+              top: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AuthorizationTelegram()));
+                },
+                child: Text('Авторизация Telegram'),
+              ),
+            ),
+          ],
+        ),
     );
   }
 }
