@@ -1,8 +1,15 @@
+import 'dart:convert';
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
+import 'dart:async';
+
+import 'func.dart';
+
 
 
 void main() {
@@ -119,6 +126,17 @@ class AuthorizationVK extends StatefulWidget {
 
 class _AuthorizationVKState extends State<AuthorizationVK> {
   String data_ex = '';
+  TextEditingController loginController = TextEditingController();
+
+  Future<void> sendDataToServer(String login) async {
+    var url = 'http://127.0.0.1:5000/tg?Number=' + login;
+    await Future.delayed(Duration.zero, () {
+      getServer(url);
+    });
+    setState(() {
+      data_ex = login;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +146,14 @@ class _AuthorizationVKState extends State<AuthorizationVK> {
       ),
       body: Stack(
         children: <Widget>[
+          Center(
+            child: TextField(
+              controller: loginController,
+              decoration: InputDecoration(
+                hintText: 'Введите логин VK',
+              ),
+            ),
+          ),
           Positioned(
             top: 20,
             left: 20,
@@ -148,20 +174,23 @@ class _AuthorizationVKState extends State<AuthorizationVK> {
               child: Text('Авторизация Telegram'),
             ),
           ),
-          Center(            
-            child: Text(data_ex, style: TextStyle(fontSize: 20)),
-          ),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Введите логин VK',
+          Positioned(
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: ElevatedButton(
+              onPressed: () async {
+                await sendDataToServer(loginController.text);
+              },
+              child: Text('Ввод'),
             ),
-            onSubmitted: (value) {
-              setState(() {
-                data_ex = value;
-              });
-            },
           ),
-          SizedBox(height: 20),
+          Positioned(
+            top: 100,
+            child: Center(
+              child: Text(data_ex, style: TextStyle(fontSize: 20)),
+            ),
+          ),
         ],
       ),
     );
