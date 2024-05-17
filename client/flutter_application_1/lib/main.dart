@@ -112,37 +112,58 @@ class AuthorizationTelegram extends StatelessWidget {
   }
 }
 
-class AuthorizationVK extends StatelessWidget {
+class AuthorizationVK extends StatefulWidget {
+  @override
+  _AuthorizationVKState createState() => _AuthorizationVKState();
+}
+
+class _AuthorizationVKState extends State<AuthorizationVK> {
+  String data_ex = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Авторизация VK'),
       ),
-      body:Stack(
-          children: <Widget>[
-            Positioned(      
-              top: 20,
-              left: 20,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChoosingPage()));
-                },
-                child: Text('Вернуться'),
-              ),
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 20,
+            left: 20,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ChoosingPage()));
+              },
+              child: Text('Вернуться'),
             ),
-            Positioned(      
-              top: 20,
-              right: 20,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AuthorizationTelegram()));
-                },
-                child: Text('Авторизация Telegram'),
-              ),
+          ),
+          Positioned(
+            top: 20,
+            right: 20,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AuthorizationTelegram()));
+              },
+              child: Text('Авторизация Telegram'),
             ),
-          ],
-        ),
+          ),
+          Center(            
+            child: Text(data_ex, style: TextStyle(fontSize: 20)),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              hintText: 'Введите логин VK',
+            ),
+            onSubmitted: (value) {
+              setState(() {
+                data_ex = value;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+        ],
+      ),
     );
   }
 }
