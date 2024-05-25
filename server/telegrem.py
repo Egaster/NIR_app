@@ -19,12 +19,9 @@ def phone_number():
 
 @app.route('/tg/signup', methods=['GET'])
 def sign_up():
-    name = str(request.args['Acc'])
     Number = str(request.args['Number'])
     Password = str(request.args['Password'])
-    inner_dict ={}
-    inner_dict[Number] = Password
-    base2[name] = inner_dict
+    base2[Number] = Password
     return jsonify (base2)
 
 
