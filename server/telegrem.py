@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 base = {}
 base2 = {}
-@app.route('/tg/numbers')
+@app.route('/vk/numbers')
 def all_base_phones():
     return base2;
 
@@ -17,7 +17,7 @@ def phone_number():
     base['Number2'] = str(request.args['Number2'])
     return jsonify (base)
 
-@app.route('/tg/signup', methods=['GET'])
+@app.route('/vk/signup', methods=['GET'])
 def sign_up():
     Number = str(request.args['Number'])
     Password = str(request.args['Password'])
